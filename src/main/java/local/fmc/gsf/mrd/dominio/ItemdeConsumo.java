@@ -2,6 +2,7 @@ package local.fmc.gsf.mrd.dominio;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,10 +12,11 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class ItemDaCasa {
+public abstract class ItemdeConsumo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "itemdacasa_id")
 	private Integer id;
 	private String nome;
 
@@ -43,7 +45,7 @@ public abstract class ItemDaCasa {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemDaCasa other = (ItemDaCasa) obj;
+		ItemdeConsumo other = (ItemdeConsumo) obj;
 		return Objects.equals(getId(), other.getId());
 	}
 }

@@ -21,23 +21,11 @@
 
 					<p:panelGrid columns="2" styleClass="card-body">
 
-
-						<p:outputLabel value="Nome da dispensa:" for="@next" />
-
-						<p:selectOneMenu id="dispensa" style="width:125px" value="#{dispensaBean.dispensaId}">
-							<f:selectItems value="#{dispensaBean.dispensas}" var="dispensa"
-								itemLabel="#{dispensa.nome}" itemValue="#{dispensa.id}" />
-
-
-						</p:selectOneMenu>
-
-
-
+						<p:outputLabel value="Nome" for="@next" />
 						<p:inputText id="nome" value="#{dispensaBean.dispensa.nome}" />
 
 
 						<p:outputLabel value="Adicionar item:" for="@next" />
-
 						<p:commandButton icon="fa fa-fw fa-plus"
 							action="#{dispensaBean.dispensa.adicionaItem(item)}"
 							process="adicionarItem" update="messages">

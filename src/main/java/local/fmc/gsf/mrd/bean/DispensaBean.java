@@ -1,5 +1,6 @@
 package local.fmc.gsf.mrd.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,19 +10,20 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import local.fmc.gsf.mrd.dominio.Dispensa;
-import local.fmc.gsf.mrd.dominio.ItemDaCasa;
+import local.fmc.gsf.mrd.dominio.ItemdeConsumo;
 import local.fmc.gsf.mrd.dominio.ItemDeConsumo;
-import local.fmc.gsf.mrd.infra.ItemDaCasaDAO;
+import local.fmc.gsf.mrd.infra.DispensaDAO;
 
 @ManagedBean
 @SessionScoped
-public class DispensaBean {
+public class DispensaBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@EJB
-	private ItemDaCasaDAO dao;
+	private DispensaDAO dao;
 	private Dispensa dispensa;
 	private ItemDeConsumo item = new ItemDeConsumo();
-	private List<ItemDaCasa> dispensas;
+	private List<Dispensa> dispensas;
 	private int dispensaId;
 
 	public void salvarDispensa() {
@@ -55,9 +57,13 @@ public class DispensaBean {
 		this.item = item;
 	}
 
-	public List<ItemDaCasa> getDispensas() {
+	public List<Dispensa> getDispensas() {
 		if (dispensas == null) {
-			dispensas = dao.listar(); 
+			if (dao.listar().isEmpty()) {
+				mensagemGlobal("Não existem dispensas cadastradas.");
+				return null;
+			}
+			dispensas = dao.listar();
 		}
 		return dispensas;
 	}

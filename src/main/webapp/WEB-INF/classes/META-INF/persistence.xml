@@ -2,8 +2,8 @@
 <!DOCTYPE xml>
 <persistence>
 
-	<persistence-unit name="gsf-mrdDS">
+	<persistence-unit name="GSF-MRD-DS">
 
-		<jta-data-source>java:/gsf-mrdDS</jta-data-source>
+		<jta-data-source>java:/GSF-MRD-DS</jta-data-source>
 	</persistence-unit>
 </persistence>
