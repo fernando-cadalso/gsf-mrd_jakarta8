@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{base :: head}"></head>
+
+<body>
+	<div id="cadastro-lista" class="container">
+
+		<div th:replace="base :: cabecalho"></div>
+
+		<div id="conteudo" class="container">
+
+			<form th:object="${gravarLista}" method="POST" action="/item/gravar-lista">
+				<fieldset>
+					<legend>Cadastro de <strong>lista modelo</strong></legend>
+					<div class="mb-3 form-group">
+						<label for="nome" class="form-label">* Nome da lista: </label>
+						<input th:field="*{nome}" type="text" class="form-control" th:errorclass="is-invalid" id="nome">
+						<div class="invalid-feedback" th:errors="*{nome}"></div>
+
+					</div>
+
+					<div class="form-text">Verifique antes de salvar.</div>
+					
+					<button type="submit" class="btn btn-primary">Salvar lista</button>
+					<a href="/item/form-nova"><button type="button" class="btn btn-primary">Nova lista</button></a>
+					<a href="/#collapseCadastros"><button type="button" class="btn btn-secondary">Voltar</button></a>
+				</fieldset>
+			</form>
+
+		</div>
+	</div>
+
+	<div th:replace="~{base :: rodape}"> </div>
+
+</body>
+
+</html>

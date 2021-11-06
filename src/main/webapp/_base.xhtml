@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.15.4/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.15.4/css/v4-shims.min-jsf.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<style type="text/css">
+i {
+	margin-right: 10px;
+}
+
+.ui-grid-col-3 {
+	padding: 4px 10px;
+}
+</style>
+	<title>GSF Gestão do Serviço de Finanças</title>
+</h:head>
+
+<h:body style="background-color: beige;">
+
+	<!-- Componente para receber apenas as mensagens globais, -->
+	<!-- que não são direcionadas para nenhum outro componente. -->
+	<p:growl id="messages" showDetail="true" globalOnly="true">
+		<p:autoUpdate />
+	</p:growl>
+
+	<div class="container">
+
+		<p:panelGrid layout="flex" columns="1" style="margin-bottom:20px;">
+
+			<f:facet name="header">
+				<div class="h3">GSF-Módulo de Reposição de
+					Dispensas</div>
+
+			</f:facet>
+			<f:facet name="footer">
+				<div class="h4">Compra do mês</div>
+			</f:facet>
+		</p:panelGrid>
+
+
+
+
+
+		<!-- ################################################################# -->
+		<!-- ÁREADE CONTEÚDO DO TEMPLATE -->
+		<!-- ################################################################# -->
+		<div id="conteudo">
+
+			<ui:insert name="conteudo"></ui:insert>
+
+		</div>
+
+		<!-- ################################################################# -->
+		<!-- ÁREADE RODAPÉ DO TEMPLATE -->
+		<!-- ################################################################# -->
+		<div id="rodape">
+
+			<strong><ui:insert name="rodape">
+					<span class="h6">Gerenciamento do Serviço de Finanças
+						Família Meireles Cadalso </span>
+
+				</ui:insert></strong>
+
+		</div>
+
+		<!-- 		<script src="/popper/popper.min.js"></script> -->
+		<!-- 		<script src="/jquery-3.6/jquery-3.6.0.min.js"></script> -->
+
+	</div>
+	<h:outputScript library="js" name="bootstrap.min.js" />
+</h:body>
+
+</html>
