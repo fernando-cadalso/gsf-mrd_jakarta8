@@ -51,7 +51,7 @@ public class Dispensa{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(getId());
 	}
 
 
@@ -64,7 +64,12 @@ public class Dispensa{
 		if (getClass() != obj.getClass())
 			return false;
 		Dispensa other = (Dispensa) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(getId(), other.getId());
+	}
+
+
+	public Integer getId() {
+		return id;
 	}
 	
 }

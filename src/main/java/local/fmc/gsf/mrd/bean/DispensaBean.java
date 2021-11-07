@@ -3,19 +3,19 @@ package local.fmc.gsf.mrd.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 import local.fmc.gsf.mrd.dominio.Dispensa;
-import local.fmc.gsf.mrd.dominio.ItemdeConsumo;
 import local.fmc.gsf.mrd.dominio.ItemDeConsumo;
 import local.fmc.gsf.mrd.infra.DispensaDAO;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class DispensaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,14 +26,30 @@ public class DispensaBean implements Serializable {
 	private List<Dispensa> dispensas;
 	private int dispensaId;
 
-	public void salvarDispensa() {
-		dao.salvar(dispensa);
-		mensagemGlobal("Dispensa salva!");
+	@PostConstruct
+	public void init() {
+		getDispensas();
 	}
 
-	public String mensagemGlobal(String msg) {
+	public void salvarDispensa() {
+		dao.salvar(dispensa);
+		dispensa = new Dispensa();
+		getDispensas();
+		mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Dispensa salva!"));
+	}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
+	public void excluir(Dispensa dispensa) {
+		System.out.println("Aviso: Excluindo a dispensa " + dispensa.getNome());
+		mensagemGlobal(
+				new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Excluindo a dispensa " + dispensa.getNome()));
+		dao.excluir(dispensa);
+		getDispensas();
+		mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Dispensa excluída"));
+	}
+
+	public String mensagemGlobal(FacesMessage msg) {
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		return null;
 	}
@@ -43,6 +59,10 @@ public class DispensaBean implements Serializable {
 			dispensa = new Dispensa();
 		}
 		return dispensa;
+	}
+
+	public void adicionaItem(ItemDeConsumo item) {
+		dispensa.adicionaItem(item);
 	}
 
 	public void setDispensa(Dispensa dispensa) {
@@ -58,14 +78,13 @@ public class DispensaBean implements Serializable {
 	}
 
 	public List<Dispensa> getDispensas() {
-		if (dispensas == null) {
-			if (dao.listar().isEmpty()) {
-				mensagemGlobal("Não existem dispensas cadastradas.");
-				return null;
-			}
-			dispensas = dao.listar();
+		if (dao.estaVazio()) {
+			mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Não há dispensas cadastradas."));
+			dispensas = null;
 		}
+		dispensas = dao.listar();
 		return dispensas;
+
 	}
 
 	public int getDispensaId() {

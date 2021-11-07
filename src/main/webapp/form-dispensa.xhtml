@@ -10,8 +10,8 @@
 
 	<ui:define name="conteudo">
 
-		<h:form styleClass="card">
-			<p:panel>
+		<h:form id="formCadastro" styleClass="card">
+			<p:panel id="painelCadastro">
 				<p:fieldset>
 
 					<legend class="card-header h3">
@@ -19,18 +19,15 @@
 					</legend>
 
 
-					<p:panelGrid columns="2" styleClass="card-body">
+					<p:panelGrid id="gradeCadastro" columns="1"
+						styleClass="card-body ui-panelgrid-blank ui-fluid">
 
-						<p:outputLabel value="Nome" for="@next" />
-						<p:inputText id="nome" value="#{dispensaBean.dispensa.nome}" />
+						<p:outputLabel value="Nome">
+							<p:inputText id="nome" value="#{dispensaBean.dispensa.nome}"
+								placeholder="Digite um nome." required="true" requiredMessage="Nome não pode ser em branco." />
+						</p:outputLabel>
 
-
-						<p:outputLabel value="Adicionar item:" for="@next" />
-						<p:commandButton icon="fa fa-fw fa-plus"
-							action="#{dispensaBean.dispensa.adicionaItem(item)}"
-							process="adicionarItem" update="messages">
-							<p:inputText id="adicionarItem" value="#{dispensaBean.item.nome}" />
-						</p:commandButton>
+						<div class="form-text">Verifique antes de salvar.</div>
 
 					</p:panelGrid>
 
@@ -38,12 +35,11 @@
 
 				<f:facet name="footer">
 					<div class="card-footer">
-						<div class="form-text">Verifique antes de salvar.</div>
 
 						<p:commandButton value="Salvar"
 							action="#{dispensaBean.salvarDispensa}" process="@form"
-							update="@form messages" style="margin-right:20px;"
-							icon="fa fa-fw fa-save" />
+							update="@form messages @(.ui-datatable)"
+							style="margin-right:20px;" icon="fa fa-fw fa-save" />
 
 						<p:commandButton value="Nova Dispensa" type="reset"
 							update="messages" immediate="true" style="margin-right:20px;"
@@ -56,6 +52,40 @@
 				</f:facet>
 
 			</p:panel>
+
+		</h:form>
+
+
+		<h:form id="formConsulta" rendered="#{dispensaBean.dispensas != null}">
+			<p:dataTable id="tabelaConsulta" var="dispensa"
+				value="#{dispensaBean.dispensas}" rowKey="#{dispensa.id}"
+				selection="#{dispensaBean.dispensa}" selectionMode="single">
+
+				<f:facet name="header">
+                Lista de dispensas
+            </f:facet>
+
+				<p:column headerText="Ações" style="width:90px;">
+				
+					<p:commandButton icon="pi pi-pencil"
+						styleClass="rounded-button ui-button-flat" update="formCadastro">
+
+						<f:setPropertyActionListener value="#{dispensa}"
+							target="#{dispensaBean.dispensa}" />
+					</p:commandButton>
+					
+					<p:commandButton icon="pi pi-trash"
+						styleClass="rounded-button ui-button-danger ui-button-flat"
+						action="#{dispensaBean.excluir(dispensa)}" update="@(.ui-datatable)"/>
+
+				</p:column>
+
+				<p:column headerText="Nome">
+
+					<h:outputText id="nomeDispensa" value="#{dispensa.nome}" />
+				</p:column>
+
+			</p:dataTable>
 
 		</h:form>
 

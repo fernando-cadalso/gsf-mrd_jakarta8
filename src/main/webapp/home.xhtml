@@ -11,14 +11,15 @@
 	<ui:define name="conteudo">
 
 		<h:form id="formMenuDeCadastros">
-			<p:accordionPanel>
-				<p:tab title="Cadastros">
-					<p:panelGrid cellpadding="5" columns="1">
+			<p:accordionPanel id="painelAcordeao" widgetVar="Menu">
+				<p:tab id="tabCadastros" title="Cadastros" columnn="1">
+					<p:panelGrid id="gradeCadastros" cellpadding="5" columns="1" layout="grid">
 						<p:commandLink update="@all"
-							action="form-item?faces-redirect=true"
-							style="margin-right:20px;" value="Item" />
+							action="form-item?faces-redirect=true" style="margin-right:20px;"
+							value="Item" />
 
-						<p:commandLink update="@all" action="form-dispensa?faces-redirect=true"
+						<p:commandLink update="@all"
+							action="form-dispensa?faces-redirect=true"
 							style="margin-right:20px;" value="Dispensa" />
 
 						<p:commandLink update="@all"
@@ -27,8 +28,8 @@
 					</p:panelGrid>
 				</p:tab>
 
-				<p:tab title="Consulas">
-					<p:panelGrid cellpadding="5">
+				<p:tab id="tabConsultas" title="Consulas">
+					<p:panelGrid id="gradeConsultas" cellpadding="5" columns="1" layout="grid">
 
 						<p:link outcome="form-item" value="Item de consumo"
 							includeViewParams="false" style="margin-right:20px;" />
@@ -37,8 +38,8 @@
 							action="dispensa/listar?faces-redirect=true"
 							style="margin-right:20px;" />
 
-						<p:commandLink value="Lista" update="@all"
-							action="form-lista" style="margin-right:20px;" />
+						<p:commandLink value="Lista" update="@all" action="form-lista"
+							style="margin-right:20px;" />
 					</p:panelGrid>
 				</p:tab>
 
