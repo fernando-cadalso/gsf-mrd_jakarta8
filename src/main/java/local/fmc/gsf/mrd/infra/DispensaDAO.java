@@ -1,6 +1,5 @@
 package local.fmc.gsf.mrd.infra;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +28,14 @@ public class DispensaDAO {
 		estaVazio();
 	}
 
+	public void atualizar(Dispensa dispensa) {
+		em.merge(dispensa);
+	}
+
+	public Dispensa buscaPeloID(Integer id) {
+		return em.find(Dispensa.class, id);
+	}
+
 	public List<Dispensa> listar() {
 
 		try {
@@ -53,9 +60,9 @@ public class DispensaDAO {
 
 	public boolean estaVazio() {
 		boolean empty = em.createQuery("SELECT d FROM Dispensa d", Dispensa.class).getResultList().isEmpty();
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "SGBD vazio?", String.valueOf(empty)));
-		
+//		FacesContext.getCurrentInstance().addMessage(null,
+//				new FacesMessage(FacesMessage.SEVERITY_INFO, "SGBD vazio?", String.valueOf(empty)));
+
 		return empty;
 
 	}
