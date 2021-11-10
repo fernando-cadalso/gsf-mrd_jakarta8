@@ -23,11 +23,10 @@ public class DispensaBean implements Serializable {
 	private Dispensa dispensa = new Dispensa();
 	private List<Dispensa> dispensas;
 
-
 	public void salvarDispensa() {
 
 		/*
-		 * Verifica se a dispensa que será salva é uma nova ou é uma que já existe
+		 * Verifica se a dispensa que será salva é nova ou já existe
 		 */
 		if (this.dispensa.getId() == null) {
 			dao.salvar(this.dispensa);
@@ -41,19 +40,9 @@ public class DispensaBean implements Serializable {
 	}
 
 	public void excluir(Dispensa dispensa) {
-		System.out.println("Aviso: Excluindo a dispensa " + dispensa.getNome());
-		mensagemGlobal(
-				new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Excluindo a dispensa " + dispensa.getNome()));
 		dao.excluir(dispensa);
 		getDispensas();
 		mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Dispensa excluída"));
-	}
-
-	public String mensagemGlobal(FacesMessage msg) {
-
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		return null;
 	}
 
 	public Dispensa getDispensa() {
@@ -77,6 +66,11 @@ public class DispensaBean implements Serializable {
 		dispensas = dao.listar();
 		return dispensas;
 
+	}
+
+	public void mensagemGlobal(FacesMessage msg) {
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 }

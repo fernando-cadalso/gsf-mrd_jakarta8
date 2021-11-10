@@ -10,71 +10,92 @@
 
 	<ui:define name="conteudo">
 
+		<!-- 	###################################################################### -->
+		<!-- 	CADASTRO DE ITENS##################################################### -->
+		<!-- 	###################################################################### -->
 		<h:form>
 
 			<p:panel styleClass="card">
-				<!-- 					<f:facet name="header"> -->
+
 				<div class="card-header h3">
 					Cadastro de <strong>item</strong>
 				</div>
-				<!-- 					</f:facet> -->
 
 				<f:facet name="footer">
 					<div class="card-footer">
 						<div class="form-text">Verifique antes de salvar.</div>
+						<br />
 
-						<p:commandButton value="Salvar item"
-							action="#{itemBean.salvar}" process="@form"
-							update="@form messages" style="margin-right:20px;"
-							icon="fa fa-fw fa-save" />
+						<p:commandButton value="Salvar item" action="#{bean.salvar}"
+							process="@form" update="@form messages" styleClass="p-mr-2"
+							icon="pi pi-save" />
 
-						<p:commandButton value="Novo item" type="reset"
-							update="messages" immediate="true"
-							style="margin-right:20px;" icon="fa fa-fw fa-plus" />
+						<p:commandButton value="Novo item" type="reset" update="messages"
+							immediate="true" styleClass="p-mr-2" icon="pi pi-plus" />
 
 						<p:linkButton value="Voltar" outcome="home" update="messages"
-							style="margin-right:20px;" icon="fa fa-fw fa-arrow-left" />
+							style="margin-right:20px;" icon="pi pi-arrow-left" />
 
 					</div>
 				</f:facet>
 
-				<p:panelGrid columns="2" styleClass="card-body">
+				<div class="card-body">
+					<div class="ui-fluid">
+						<div class="p-formgroup-inline p-grid p-jc-between">
 
-					<p:outputLabel value="Nome do item:" for="@next" />
-					<p:inputText id="nome" value="#{itemBean.item.nome}" />
+							<div class="p-field p-col-4">
+								<p:outputLabel value="Nome do item:" for="@next"
+									styleClass="form-label" />
+								<p:inputText id="nome" value="#{bean.item.nome}" />
+							</div>
+							<div class="p-field p-col-2">
+								<p:outputLabel value="Quantidade:" for="quantidade"
+									styleClass="form-label" />
+								<p:inputText id="quantidade" value="#{bean.item.quantidade}" />
+							</div>
+							<div class="p-field p-col-2">
+								<p:outputLabel value="Preço:" for="preco"
+									styleClass="form-label" />
+								<p:inputText id="preco" value="#{bean.item.preco}" />
+							</div>
 
-					<p:outputLabel value="Descrição:" for="@next" />
-					<p:inputText id="descricao"
-						value="#{itemBean.item.descricao}" />
+						</div>
 
-					<p:outputLabel value="Quantidade:" for="quantidade" />
-					<p:inputText id="quantidade"
-						value="#{itemBean.item.quantidade}" />
+						<p:outputLabel value="Descrição:" for="@next"
+							styleClass="form-label" />
+						<p:inputText id="descricao" value="#{bean.item.descricao}"
+							styleClass="p-mb-3" />
 
-					<p:outputLabel value="Preço:" for="preco" styleClass="form-label" />
-					<p:inputText id="preco" value="#{itemBean.item.preco}" />
+						<p:outputLabel value="Mercado:" for="@next"
+							styleClass="form-label" />
+						<p:inputText id="mercado" value="#{bean.item.mercado}"
+							styleClass="p-mb-3" />
 
-					<p:outputLabel value="Mercado:" for="@next" styleClass="form-label" />
-					<p:inputText id="mercado" value="#{itemBean.item.mercado}" />
+						<div class="p-formgroup-inline">
+							<div class="p-field">
+								<p:outputLabel value="Dispensa:" for="@next"
+									styleClass="form-label" />
 
-					<p:outputLabel value="Dispensa:" for="@next" />
-					<p:selectOneMenu id="dispensas" value="dispensas"
-						style="width:125px">
-						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItem itemLabel="Alimentação" itemValue="1" />
-						<f:selectItem itemLabel="Material de Higiene" itemValue="2" />
-						<f:selectItem itemLabel="Material de Limpeza" itemValue="3" />
-					</p:selectOneMenu>
+								<p:selectOneMenu id="dispensas" value="#{bean.dispensaId}">
+									<f:selectItem itemLabel="Selecione" itemValue="0" />
+									<f:selectItems value="#{bean.dispensas}" var="dispensa"
+										itemLabel="#{dispensa.nome}" itemValue="#{dispensa.id}" />
+								</p:selectOneMenu>
 
-					<p:outputLabel value="Lista:" for="@next" />
-					<p:selectOneMenu id="listas" value="listas" style="width:125px">
-						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItem itemLabel="Alimentação" itemValue="1" />
-						<f:selectItem itemLabel="Material de Higiene" itemValue="2" />
-						<f:selectItem itemLabel="Material de Limpeza" itemValue="3" />
-					</p:selectOneMenu>
+							</div>
+							<div class="p-field">
+								<p:outputLabel value="Lista:" for="@next" />
+								<p:selectOneMenu id="listas" value="listas">
+									<f:selectItem itemLabel="Select One" itemValue="" />
+									<f:selectItem itemLabel="Alimentação" itemValue="1" />
+									<f:selectItem itemLabel="Material de Higiene" itemValue="2" />
+									<f:selectItem itemLabel="Material de Limpeza" itemValue="3" />
+								</p:selectOneMenu>
+							</div>
+						</div>
 
-				</p:panelGrid>
+					</div>
+				</div>
 
 			</p:panel>
 

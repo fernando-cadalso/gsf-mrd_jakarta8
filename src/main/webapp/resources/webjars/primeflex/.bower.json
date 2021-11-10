@@ -1,0 +1,15 @@
+{
+  "name": "primeflex",
+  "homepage": "https://github.com/primefaces/primeflex",
+  "version": "2.0.0",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.0",
+    "commit": "44daba597e4c5475e5365e391fb7aa84e0ce0fda"
+  },
+  "_source": "git://github.com/primefaces/primeflex.git",
+  "_target": "2.0.0",
+  "_originalSource": "git://github.com/primefaces/primeflex.git",
+  "_direct": true
+}

@@ -1,17 +1,21 @@
 package local.fmc.gsf.mrd.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
+import local.fmc.gsf.mrd.dominio.Dispensa;
 import local.fmc.gsf.mrd.dominio.ItemDeConsumo;
+import local.fmc.gsf.mrd.infra.DispensaDAO;
 import local.fmc.gsf.mrd.infra.ItemDeConsumoDAO;
 
-@ManagedBean
+@Named("bean")
 @ViewScoped
 public class ItemBean implements Serializable {
 
@@ -19,14 +23,16 @@ public class ItemBean implements Serializable {
 
 	@EJB
 	private ItemDeConsumoDAO dao;
-	private ItemDeConsumo item;
+	@EJB
+	private DispensaDAO daoDispensa;
+	//Recebe o ID do item selecionado na lista de dispensas
+	private Integer dispensaId = 0;
+	private List<Dispensa> dispensas = new ArrayList<>();
+	private ItemDeConsumo item = new ItemDeConsumo();
 
+	
 	public ItemDeConsumo getItem() {
-		if (item == null) {
-			item = new ItemDeConsumo();
-			mensagemGlobal("Item de consumo instanciado.");
-			System.out.println("Item de consumo instanciado.");
-		}
+
 		return item;
 	}
 
@@ -41,19 +47,30 @@ public class ItemBean implements Serializable {
 
 	public void salvar() {
 		dao.salvar(item);
-		mensagemGlobal("Item salvo");
+		mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_INFO,">> Info <<", "Item salvo"));
+	}
+	
+	public List<Dispensa> getDispensas() {
+		
+		return daoDispensa.listar();
 	}
 
-	public void novo() {
+	public void mensagemGlobal(FacesMessage msg) {
 
-		mensagemGlobal("Novo item iniciado.");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public String mensagemGlobal(String msg) {
+	public void setDispensas(List<Dispensa> dispensas) {
+		this.dispensas = dispensas;
+	}
 
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
+	public Integer getDispensaId() {
+		mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_INFO,"Info","DispensaId carregado: " + this.dispensaId));
+		return dispensaId;
+	}
 
-		return null;
-
+	public void setDispensaId(Integer dispensaId) {
+		mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_INFO,"Info","DispensaId definido: " + this.dispensaId));		
+		this.dispensaId = dispensaId;
 	}
 }
