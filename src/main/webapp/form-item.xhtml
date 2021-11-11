@@ -8,8 +8,12 @@
 
 <ui:composition template="_base.xhtml">
 
-	<ui:define name="conteudo">
 
+	<ui:define name="conteudo">
+		<p:messages id="msgItens" showSummary="true" showDetail="true"
+			skipDetailIfEqualsSummary="true">
+			<p:autoUpdate />
+		</p:messages>
 		<!-- 	###################################################################### -->
 		<!-- 	CADASTRO DE ITENS##################################################### -->
 		<!-- 	###################################################################### -->
@@ -46,8 +50,17 @@
 							<div class="p-field p-col-4">
 								<p:outputLabel value="Nome do item:" for="@next"
 									styleClass="form-label" />
-								<p:inputText id="nome" value="#{bean.item.nome}" />
+								<p:inputText id="nome" value="#{bean.item.nome}" required="true"
+									requiredMessage="Informe o nome do item."
+									validatorMessage="O nome deve ter menos de 50 caracteres."
+									maxlength="50">
+									<f:validateLength minimum="1" maximum="49" />
+									<p:ajax event="keyup" />
+									<p:ajax event="blur" />
+								</p:inputText>
+								<p:message for="nome" display="icon" />
 							</div>
+
 							<div class="p-field p-col-2">
 								<p:outputLabel value="Quantidade:" for="quantidade"
 									styleClass="form-label" />
@@ -76,10 +89,12 @@
 								<p:outputLabel value="Dispensa:" for="@next"
 									styleClass="form-label" />
 
-								<p:selectOneMenu id="dispensas" value="#{bean.dispensaId}">
-									<f:selectItem itemLabel="Selecione" itemValue="0" />
+								<p:selectOneMenu id="dispensas" value="#{bean.dispensaId}"
+									required="true">
+									<f:selectItem itemLabel="Selecione" itemValue="null"/>
 									<f:selectItems value="#{bean.dispensas}" var="dispensa"
 										itemLabel="#{dispensa.nome}" itemValue="#{dispensa.id}" />
+										<p:ajax event="blur"/>
 								</p:selectOneMenu>
 
 							</div>
