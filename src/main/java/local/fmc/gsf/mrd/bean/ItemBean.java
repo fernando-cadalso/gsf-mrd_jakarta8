@@ -9,7 +9,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import local.fmc.gsf.mrd.dominio.Dispensa;
