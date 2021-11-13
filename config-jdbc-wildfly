@@ -1,0 +1,15 @@
+
+Adicionando um módulo
+PostgreSQL
+module add --name=org.postgresql --resources="/home/fernando/Downloads/Java libs/db/postgresql-9.4-1200-jdbc41.jar" --dependencies=javax.api,javax.transaction.api
+
+MySQL
+module add --name=com.mysql --resources="{Local em que o .jar está salvo}" --dependencies=javax.api,javax.transaction.api
+
+Criando um drive JDBC
+PostgreSQL
+/subsystem=datasources/jdbc-driver=org.postgresql:add(driver-name=org.postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+
+MySQL
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-xa-datasource-class-name=com.mysql.cj.jdbc.MysqlXADataSource)
