@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class ItemDeConsumo {
@@ -22,8 +21,7 @@ public class ItemDeConsumo {
 	private BigDecimal preco;
 	private String descricao;
 	private String mercado;
-
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "dispensa_id")
 	private Dispensa dispensa;
 
@@ -81,7 +79,7 @@ public class ItemDeConsumo {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(getId());
 	}
 
 	@Override
@@ -93,7 +91,19 @@ public class ItemDeConsumo {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemDeConsumo other = (ItemDeConsumo) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(getId(), other.getId());
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setDispensa(Dispensa dispensa) {
+		this.dispensa = dispensa;
 	}
 	
 }

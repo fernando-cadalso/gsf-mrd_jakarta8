@@ -26,17 +26,26 @@ public class ItemDeConsumoDAO {
 		em.persist(item);
 	}
 
-	public List<ItemDeConsumo> listar() {
-		
+	public void atualizar(ItemDeConsumo item) {
+
+		em.merge(item);
+	}
+
+	public List<ItemDeConsumo> listarTodos() {
+
 		try {
 			em.createQuery("SELECT i FROM ItemDeConsumo i", ItemDeConsumo.class).getResultList();
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nâo foi possível abrir a lista de itens de consumo: " + e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Nâo foi possível abrir a lista de itens de consumo: " + e.getMessage()));
 			System.out.println("Nâo foi possível abrir a lista de itens de consumo: " + e.getMessage());
 		}
-		
 
 		return em.createQuery("SELECT i FROM ItemDeConsumo i", ItemDeConsumo.class).getResultList();
+	}
+
+	public ItemDeConsumo consultar(Integer id) {
+		return em.find(ItemDeConsumo.class, id);
 	}
 
 }

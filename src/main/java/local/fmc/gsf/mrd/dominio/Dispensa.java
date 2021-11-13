@@ -1,5 +1,6 @@
 package local.fmc.gsf.mrd.dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,13 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Dispensa{
+public class Dispensa implements Serializable{
+
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dispensa")
 	private List<ItemDeConsumo> itens = new ArrayList<>();
 	
@@ -32,7 +34,7 @@ public class Dispensa{
 		this.nome = nome;
 	}
 
-
+	
 	public List<ItemDeConsumo> getItens() {
 		return itens;
 	}
@@ -70,6 +72,11 @@ public class Dispensa{
 
 	public Integer getId() {
 		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }

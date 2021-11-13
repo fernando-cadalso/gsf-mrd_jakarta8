@@ -5,5 +5,12 @@
 	<persistence-unit name="GSF-MRD-DS">
 
 		<jta-data-source>java:/GSF-MRD-DS</jta-data-source>
+	<properties>
+	
+<property name="hibernate.generate_statistics" value="true"/>	
+<property name="javax.persistence.schema-generation.database.action" value="none"/>
+	</properties>
 	</persistence-unit>
+	
+	
 </persistence>
