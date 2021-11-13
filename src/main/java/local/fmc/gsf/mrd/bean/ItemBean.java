@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import local.fmc.gsf.mrd.dominio.Dispensa;
 import local.fmc.gsf.mrd.dominio.ItemDeConsumo;
@@ -28,8 +27,7 @@ public class ItemBean implements Serializable {
 	@EJB
 	private DispensaDAO daoDispensa;
 	// Recebe o ID do item selecionado na lista de dispensas
-	@NotNull
-	@Size(min = 1, message = "Selecione a dispensa desse item.")
+	@NotNull(message = "Selecione a dispensa desse item.")
 	private Integer dispensaId;
 	private List<Dispensa> dispensas = new ArrayList<>();
 	private ItemDeConsumo item = new ItemDeConsumo();
