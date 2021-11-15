@@ -19,7 +19,7 @@ public class ItemDeConsumoDAO {
 
 	@PostConstruct
 	public void daoCarregado() {
-		System.out.println("[INFO] DAO para item de consumo foi carregado.");
+		System.out.print("\n#\n#\n#[INFO] DAO para item de consumo foi carregado.\n#\n#\n#");
 	}
 
 	public void salvar(ItemDeConsumo item) {
@@ -44,8 +44,13 @@ public class ItemDeConsumoDAO {
 		return em.createQuery("SELECT i FROM ItemDeConsumo i", ItemDeConsumo.class).getResultList();
 	}
 
-	public ItemDeConsumo consultar(Integer id) {
+	public ItemDeConsumo consultarPeloID(Integer id) {
 		return em.find(ItemDeConsumo.class, id);
+	}
+
+	public void excluir(ItemDeConsumo item) {
+		ItemDeConsumo consultarPeloID = consultarPeloID(item.getId());
+		em.remove(consultarPeloID);
 	}
 
 }

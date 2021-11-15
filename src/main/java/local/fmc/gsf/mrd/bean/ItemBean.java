@@ -46,8 +46,17 @@ public class ItemBean implements Serializable {
 
 		return "home?faces-redirect=true";
 	}
+	
+//	public ItemDeConsumo novo() {
+//		return new ItemDeConsumo();
+//	}
 
 	public void salvar() {
+		/*
+		 * Independente do estado do registro do item,
+		 * faz a busca pela dispensa que o usuário selecionou
+		 */
+		this.item.setDispensa(daoDispensa.buscaPeloID(dispensaId));
 		/*
 		 * Verifica se o item já existe
 		 */
@@ -61,6 +70,11 @@ public class ItemBean implements Serializable {
 		this.item = new ItemDeConsumo();
 		getItens();
 		
+	}
+	
+	public void excluir(ItemDeConsumo item) {
+		dao.excluir(item);
+		mensagemGlobal(new FacesMessage(FacesMessage.SEVERITY_WARN,"Aviso","Item apagado."));
 	}
 
 	public List<Dispensa> getDispensas() {
