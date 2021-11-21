@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<ui:composition template="_base.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+
+		<!-- 	###################################################################### -->
+		<!-- 	CADASTRO DE COMPRAS################################################### -->
+		<!-- 	###################################################################### -->
+		<h:form id="formCadastro" styleClass="card">
+			<p:panel id="painelCadastro">
+				<p:fieldset>
+
+					<legend class="card-header h3">
+						Nova <strong>COMPRA</strong>
+					</legend>
+
+
+					<p:panelGrid id="gradeCadastro" columns="1"
+						styleClass="card-body ui-panelgrid-blank ui-fluid">
+
+						<p:selectOneMenu id="listaModelo"
+							value="#{beanC.listaSelecionada}" required="true"
+							requiredMessage="Selecione uma lista modelo.">
+							<f:selectItem itemLabel="Selecione uma lista modelo.."
+								itemValue="null" />
+							<f:selectItems value="#{beanC.listasModelo}" var="modelo"
+								itemLabel="#{modelo.nome}" itemValue="#{modelo.id}" />
+							<p:ajax listener="#{beanC.defineListaSelecionada}"
+								update="@id(itensDaListaModelo) messages" />
+							<!--REIMPLEMENTAR QUANDO RESOLVER O BUG COM BLUR <p:ajax event="blur" /> -->
+						</p:selectOneMenu>
+
+						<p:dataTable id="tabelaItens">
+							<f:facet name="header">Selecione os itens para montar a lista</f:facet>
+
+							<p:selectOneMenu id="itensDaListaModelo"
+								value="#{beanC.itemSelecionado}">
+
+
+
+
+
+								<f:selectItems var="item" value="#{beanC.itens}">
+
+
+
+
+
+
+
+									<p:inputNumber id="quantidade" value="#{item.quantidade}"
+										decimalPlaces="3" decimalSeparator="," />
+								</f:selectItems>
+
+
+							</p:selectOneMenu>
+
+						</p:dataTable>
+
+						<div class="p-formgroup-inline">
+							<div class="p-field">
+								<p:inputText id="nomeItem" value="#{beanC.item.nome}"
+									placeholder="Digite um item..." required="true"
+									requiredMessage="Nome não pode ser em branco." />
+							</div>
+							<div class="p-field">
+								<p:inputNumber id="qtdeItem" placeholder="Quantidade..."
+									alt="Quantidade do item." value="#{beanC.item.quantidade}"
+									decimalPlaces="3" decimalSeparator="," maxValue="999999.99" />
+							</div>
+
+						</div>
+
+						<div class="form-text">Verifique antes de salvar.</div>
+					</p:panelGrid>
+
+				</p:fieldset>
+
+				<!-- 	###################################################################### -->
+				<!--    BARRA DE BOTÕES####################################################### -->
+				<!-- 	###################################################################### -->
+				<f:facet name="footer">
+					<div class="card-footer">
+
+						<p:commandButton value="Salvar" action="#{beanC.salvar}"
+							process="@form" update="@form messages @(.ui-datatable)"
+							style="margin-right:20px;" icon="pi pi-save" />
+
+						<p:linkButton value="Voltar" outcome="home" update="messages"
+							style="margin-right:20px;" icon="pi pi-arrow-left" />
+
+					</div>
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+
+		<!-- 		###################################################################### -->
+		<!-- 		LISTAS DE COMPRAS##################################################### -->
+		<!-- 		###################################################################### -->
+		<h:form id="formConsulta" rendered="#{beanC.compras != null}">
+			<p:dataTable id="tabelaConsulta" var="compra"
+				value="#{beanC.compras}" rowKey="#{compra.id}"
+				selection="#{beanC.listaDeCompra}" selectionMode="single">
+				<p:ajax event="rowSelect" update="formCadastro" />
+
+				<f:facet name="header">
+                Lista de compras
+            </f:facet>
+
+				<p:column headerText="Ações" style="width:90px;">
+
+					<p:commandButton icon="pi pi-trash"
+						styleClass="rounded-button ui-button-danger ui-button-flat"
+						action="#{beanC.excluir(compra)}" update="@(.ui-datatable)"
+						alt="Excluir" />
+
+				</p:column>
+
+				<p:column headerText="Data da compra">
+
+					<h:outputText id="dataCompra" value="#{compra.data}"
+						alt="Clique para ver os itens." />
+
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -55,10 +55,9 @@
 
 									<div class="p-field p-col-4">
 										<!--NOME###################################################### -->
-										<p:outputLabel value="Nome do item:" for="@next"
-											styleClass="form-label" />
-										<p:inputText id="nome" value="#{bean.item.nome}"
-											required="true" requiredMessage="Informe o nome do item."
+										<p:inputText id="nome" placeholder="Nome do item..."
+											value="#{bean.item.nome}" required="true"
+											requiredMessage="Informe o nome do item."
 											validatorMessage="O nome deve ter menos de 50 caracteres."
 											maxlength="50">
 											<f:validateLength minimum="1" maximum="49" />
@@ -70,20 +69,18 @@
 
 									<div class="p-field p-col-2">
 										<!--QUANTIDADE################################################ -->
-										<p:outputLabel value="Quantidade:" for="quantidade"
-											styleClass="form-label" />
-										<p:inputNumber id="quantidade" value="#{bean.item.quantidade}"
-											decimalPlaces="3" decimalSeparator="," maxValue="999999.99">
+										<p:inputNumber id="quantidade" placeholder="Quantidade..."
+											value="#{bean.item.quantidade}" decimalPlaces="3"
+											decimalSeparator="," maxValue="999999.99">
 										</p:inputNumber>
 									</div>
 
 									<div class="p-field p-col-2">
 										<!--PRECO##################################################### -->
-										<p:outputLabel value="Preço:" for="preco"
-											styleClass="form-label" />
-										<p:inputNumber id="preco" value="#{bean.item.preco}"
-											decimalPlaces="2" decimalSeparator="," maxValue="9999"
-											symbol="R$ " symbolPosition="p" thousandSeparator=".">
+										<p:inputNumber id="preco" placeholder="Preço"
+											value="#{bean.item.preco}" decimalPlaces="2"
+											decimalSeparator="," maxValue="9999" symbol="R$ "
+											symbolPosition="p" thousandSeparator=".">
 
 										</p:inputNumber>
 									</div>
@@ -116,11 +113,9 @@
 								<div class="p-formgroup-inline">
 									<div class="p-field">
 										<!--DISPENSA################################################## -->
-										<p:outputLabel value="Dispensa:" for="@next"
-											styleClass="form-label" />
-										<p:selectOneMenu id="dispensas" value="#{bean.dispensaId}"
+										<p:selectOneMenu id="dispensas" value="#{bean.dispensaSelecionada}"
 											required="true" requiredMessage="Selecione uma dispensa.">
-											<f:selectItem itemLabel="Selecione" itemValue="null" />
+											<f:selectItem itemLabel="Selecione uma dispensa..." itemValue="null" />
 											<f:selectItems value="#{bean.dispensas}" var="dispensa"
 												itemLabel="#{dispensa.nome}" itemValue="#{dispensa.id}" />
 											<!--REIMPLEMENTAR QUANDO RESOLVER O BUG COM BLUR <p:ajax event="blur" /> -->
@@ -129,16 +124,14 @@
 
 									</div>
 
-									<!-- 									<div class="p-field"> -->
-									<!-- 										LISTA###################################################### -->
-									<!-- 										<p:outputLabel value="Lista:" for="@next" /> -->
-									<!-- 										<p:selectOneMenu id="listas" value="listas"> -->
-									<!-- 											<f:selectItem itemLabel="Select One" itemValue="" /> -->
-									<!-- 											<f:selectItem itemLabel="Alimentação" itemValue="1" /> -->
-									<!-- 											<f:selectItem itemLabel="Material de Higiene" itemValue="2" /> -->
-									<!-- 											<f:selectItem itemLabel="Material de Limpeza" itemValue="3" /> -->
-									<!-- 										</p:selectOneMenu> -->
-									<!-- 									</div> -->
+									<div class="p-field">
+										<!--LISTA###################################################### -->
+										<p:selectOneMenu id="listas" value="#{bean.listaModeloSelecionada}">
+											<f:selectItem itemLabel="Selecione uma lista..." itemValue="null" />
+											<f:selectItems value="#{bean.listasModelo}" var="listaModelo"
+												itemLabel="#{listaModelo.nome}" itemValue="#{listaModelo.id}" />
+										</p:selectOneMenu>
+									</div>
 								</div>
 
 							</div>
@@ -183,6 +176,10 @@
 
 								<p:column headerText="Dispensa">
 									<h:outputText value="#{item.dispensa.nome}" />
+								</p:column>
+								
+								<p:column headerText="Lista modelo">
+									<h:outputText value="#{item.lista.nome}" />
 								</p:column>
 
 							</p:dataTable>

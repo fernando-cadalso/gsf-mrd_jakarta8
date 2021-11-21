@@ -53,6 +53,10 @@ public class ItemDeConsumo {
 		return lista;
 	}
 
+	public void setLista(ListaModelo lista) {
+		this.lista = lista;
+	}
+
 	public String getMercado() {
 		return mercado;
 	}
@@ -105,5 +109,5 @@ public class ItemDeConsumo {
 	public void setDispensa(Dispensa dispensa) {
 		this.dispensa = dispensa;
 	}
-	
+
 }

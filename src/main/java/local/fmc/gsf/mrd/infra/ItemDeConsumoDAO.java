@@ -3,6 +3,7 @@ package local.fmc.gsf.mrd.infra;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -10,12 +11,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import local.fmc.gsf.mrd.dominio.ItemDeConsumo;
+import local.fmc.gsf.mrd.dominio.ListaModelo;
 
 @Stateless
 public class ItemDeConsumoDAO {
 
 	@PersistenceContext
 	protected EntityManager em;
+	
+	@EJB
+	protected ListaModeloDAO daoListaModelo;
 
 	@PostConstruct
 	public void daoCarregado() {
@@ -23,6 +28,9 @@ public class ItemDeConsumoDAO {
 	}
 
 	public void salvar(ItemDeConsumo item) {
+		ListaModelo listaAssociada = daoListaModelo.buscarPeloId(item.getLista().getId());
+		listaAssociada.adicionarItem(item);
+		daoListaModelo.atualizar(listaAssociada);
 		em.persist(item);
 	}
 
