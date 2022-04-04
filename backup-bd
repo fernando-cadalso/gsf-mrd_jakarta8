@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4
 -- Dumped by pg_dump version 13.4
 
--- Started on 2022-04-03 16:45:01 -03
+-- Started on 2022-04-03 21:37:44 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,6 +17,251 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+DROP DATABASE gsf_mrd;
+--
+-- TOC entry 4049 (class 1262 OID 16384)
+-- Name: gsf_mrd; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE gsf_mrd WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'pt_BR.UTF-8';
+
+
+ALTER DATABASE gsf_mrd OWNER TO postgres;
+
+\connect gsf_mrd
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 201 (class 1259 OID 16388)
+-- Name: dispensa; Type: TABLE; Schema: public; Owner: fernando
+--
+
+CREATE TABLE public.dispensa (
+    id integer NOT NULL,
+    nome character varying(255)
+);
+
+
+ALTER TABLE public.dispensa OWNER TO fernando;
+
+--
+-- TOC entry 200 (class 1259 OID 16386)
+-- Name: dispensa_id_seq; Type: SEQUENCE; Schema: public; Owner: fernando
+--
+
+CREATE SEQUENCE public.dispensa_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dispensa_id_seq OWNER TO fernando;
+
+--
+-- TOC entry 4050 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: dispensa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fernando
+--
+
+ALTER SEQUENCE public.dispensa_id_seq OWNED BY public.dispensa.id;
+
+
+--
+-- TOC entry 203 (class 1259 OID 16396)
+-- Name: itemdeconsumo; Type: TABLE; Schema: public; Owner: fernando
+--
+
+CREATE TABLE public.itemdeconsumo (
+    id integer NOT NULL,
+    descricao character varying(255),
+    mercado character varying(255),
+    nome character varying(255),
+    preco numeric(19,2),
+    quantidade double precision,
+    dispensa_id integer,
+    lista_id integer
+);
+
+
+ALTER TABLE public.itemdeconsumo OWNER TO fernando;
+
+--
+-- TOC entry 202 (class 1259 OID 16394)
+-- Name: itemdeconsumo_id_seq; Type: SEQUENCE; Schema: public; Owner: fernando
+--
+
+CREATE SEQUENCE public.itemdeconsumo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.itemdeconsumo_id_seq OWNER TO fernando;
+
+--
+-- TOC entry 4051 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: itemdeconsumo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fernando
+--
+
+ALTER SEQUENCE public.itemdeconsumo_id_seq OWNED BY public.itemdeconsumo.id;
+
+
+--
+-- TOC entry 208 (class 1259 OID 16455)
+-- Name: listadecompra; Type: TABLE; Schema: public; Owner: fernando
+--
+
+CREATE TABLE public.listadecompra (
+    id bigint NOT NULL,
+    data timestamp without time zone
+);
+
+
+ALTER TABLE public.listadecompra OWNER TO fernando;
+
+--
+-- TOC entry 207 (class 1259 OID 16453)
+-- Name: listadecompra_id_seq; Type: SEQUENCE; Schema: public; Owner: fernando
+--
+
+CREATE SEQUENCE public.listadecompra_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.listadecompra_id_seq OWNER TO fernando;
+
+--
+-- TOC entry 4052 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: listadecompra_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fernando
+--
+
+ALTER SEQUENCE public.listadecompra_id_seq OWNED BY public.listadecompra.id;
+
+
+--
+-- TOC entry 205 (class 1259 OID 16407)
+-- Name: listamodelo; Type: TABLE; Schema: public; Owner: fernando
+--
+
+CREATE TABLE public.listamodelo (
+    id integer NOT NULL,
+    nome character varying(255)
+);
+
+
+ALTER TABLE public.listamodelo OWNER TO fernando;
+
+--
+-- TOC entry 204 (class 1259 OID 16405)
+-- Name: listamodelo_id_seq; Type: SEQUENCE; Schema: public; Owner: fernando
+--
+
+CREATE SEQUENCE public.listamodelo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.listamodelo_id_seq OWNER TO fernando;
+
+--
+-- TOC entry 4053 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: listamodelo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fernando
+--
+
+ALTER SEQUENCE public.listamodelo_id_seq OWNED BY public.listamodelo.id;
+
+
+--
+-- TOC entry 209 (class 1259 OID 16534)
+-- Name: listamodelo_listacompras; Type: TABLE; Schema: public; Owner: fernando
+--
+
+CREATE TABLE public.listamodelo_listacompras (
+    listasmodelo_id integer NOT NULL,
+    listadecompras_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.listamodelo_listacompras OWNER TO fernando;
+
+--
+-- TOC entry 206 (class 1259 OID 16413)
+-- Name: morador; Type: TABLE; Schema: public; Owner: fernando
+--
+
+CREATE TABLE public.morador (
+    nome character varying(255) NOT NULL,
+    papel character varying(255),
+    senha character varying(255),
+    usuario character varying(255)
+);
+
+
+ALTER TABLE public.morador OWNER TO fernando;
+
+--
+-- TOC entry 3886 (class 2604 OID 16391)
+-- Name: dispensa id; Type: DEFAULT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.dispensa ALTER COLUMN id SET DEFAULT nextval('public.dispensa_id_seq'::regclass);
+
+
+--
+-- TOC entry 3887 (class 2604 OID 16399)
+-- Name: itemdeconsumo id; Type: DEFAULT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.itemdeconsumo ALTER COLUMN id SET DEFAULT nextval('public.itemdeconsumo_id_seq'::regclass);
+
+
+--
+-- TOC entry 3889 (class 2604 OID 16458)
+-- Name: listadecompra id; Type: DEFAULT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.listadecompra ALTER COLUMN id SET DEFAULT nextval('public.listadecompra_id_seq'::regclass);
+
+
+--
+-- TOC entry 3888 (class 2604 OID 16410)
+-- Name: listamodelo id; Type: DEFAULT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.listamodelo ALTER COLUMN id SET DEFAULT nextval('public.listamodelo_id_seq'::regclass);
+
 
 --
 -- TOC entry 4035 (class 0 OID 16388)
@@ -88,7 +333,7 @@ COPY public.morador (nome, papel, senha, usuario) FROM stdin;
 
 
 --
--- TOC entry 4053 (class 0 OID 0)
+-- TOC entry 4054 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: dispensa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fernando
 --
@@ -97,7 +342,7 @@ SELECT pg_catalog.setval('public.dispensa_id_seq', 3, true);
 
 
 --
--- TOC entry 4054 (class 0 OID 0)
+-- TOC entry 4055 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: itemdeconsumo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fernando
 --
@@ -106,7 +351,7 @@ SELECT pg_catalog.setval('public.itemdeconsumo_id_seq', 23, true);
 
 
 --
--- TOC entry 4055 (class 0 OID 0)
+-- TOC entry 4056 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: listadecompra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fernando
 --
@@ -115,7 +360,7 @@ SELECT pg_catalog.setval('public.listadecompra_id_seq', 1, false);
 
 
 --
--- TOC entry 4056 (class 0 OID 0)
+-- TOC entry 4057 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: listamodelo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fernando
 --
@@ -123,7 +368,88 @@ SELECT pg_catalog.setval('public.listadecompra_id_seq', 1, false);
 SELECT pg_catalog.setval('public.listamodelo_id_seq', 6, true);
 
 
--- Completed on 2022-04-03 16:45:01 -03
+--
+-- TOC entry 3891 (class 2606 OID 16393)
+-- Name: dispensa dispensa_pkey; Type: CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.dispensa
+    ADD CONSTRAINT dispensa_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3893 (class 2606 OID 16404)
+-- Name: itemdeconsumo itemdeconsumo_pkey; Type: CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.itemdeconsumo
+    ADD CONSTRAINT itemdeconsumo_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3899 (class 2606 OID 16460)
+-- Name: listadecompra listadecompra_pkey; Type: CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.listadecompra
+    ADD CONSTRAINT listadecompra_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3895 (class 2606 OID 16412)
+-- Name: listamodelo listamodelo_pkey; Type: CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.listamodelo
+    ADD CONSTRAINT listamodelo_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3897 (class 2606 OID 16420)
+-- Name: morador morador_pkey; Type: CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.morador
+    ADD CONSTRAINT morador_pkey PRIMARY KEY (nome);
+
+
+--
+-- TOC entry 3901 (class 2606 OID 16426)
+-- Name: itemdeconsumo fk4wd1hb4ucki5cy41ka7qri828; Type: FK CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.itemdeconsumo
+    ADD CONSTRAINT fk4wd1hb4ucki5cy41ka7qri828 FOREIGN KEY (lista_id) REFERENCES public.listamodelo(id);
+
+
+--
+-- TOC entry 3902 (class 2606 OID 16537)
+-- Name: listamodelo_listacompras fkfe2lgu7mo249hynimjun9dmfe; Type: FK CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.listamodelo_listacompras
+    ADD CONSTRAINT fkfe2lgu7mo249hynimjun9dmfe FOREIGN KEY (listadecompras_id) REFERENCES public.listadecompra(id);
+
+
+--
+-- TOC entry 3900 (class 2606 OID 16421)
+-- Name: itemdeconsumo fkfe72k3ux86plisc56lpeoght4; Type: FK CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.itemdeconsumo
+    ADD CONSTRAINT fkfe72k3ux86plisc56lpeoght4 FOREIGN KEY (dispensa_id) REFERENCES public.dispensa(id);
+
+
+--
+-- TOC entry 3903 (class 2606 OID 16542)
+-- Name: listamodelo_listacompras fkkhe06rxhqsp0jme4oi2rqc35h; Type: FK CONSTRAINT; Schema: public; Owner: fernando
+--
+
+ALTER TABLE ONLY public.listamodelo_listacompras
+    ADD CONSTRAINT fkkhe06rxhqsp0jme4oi2rqc35h FOREIGN KEY (listasmodelo_id) REFERENCES public.listamodelo(id);
+
+
+-- Completed on 2022-04-03 21:37:44 -03
 
 --
 -- PostgreSQL database dump complete
