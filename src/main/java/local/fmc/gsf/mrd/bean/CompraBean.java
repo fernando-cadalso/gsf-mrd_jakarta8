@@ -136,7 +136,7 @@ public class CompraBean implements Serializable {
 		this.listaSelecionada = listaSelecionada;
 		System.out.println("Configurei id: " + this.listaSelecionada);
 	}
-	
+
 	public ItemDeConsumo getItem() {
 		return item;
 	}
@@ -149,5 +149,6 @@ public class CompraBean implements Serializable {
 		this.setItens(daoListaModelo.listarItens(listaSelecionada));
 //		daoListaModelo.listarItens(listaSelecionada).forEach(item -> System.out.println("Item: " + item.getNome()));
 		itens.forEach(item -> System.out.println("Item: " + item.getNome()));
+		
 	}
 }
