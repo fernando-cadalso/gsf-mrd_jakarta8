@@ -1,0 +1,52 @@
+**************************************
+CONFIGURANDO ACESSO AO SGBD***********
+**************************************
+
+##########################
+Adicionando um módulo#####
+##########################
+
+***PostgreSQL
+module add --name=org.postgresql --resources="/home/fernando/Downloads/Java-libs/db/postgresql-9.4.1212.jar" --dependencies=javax.api,javax.transaction.api
+
+Removendo
+module remove --name=org.postgresql
+
+***MySQL
+module add --name=com.mysql --resources="{Local em que o .jar está salvo}" --dependencies=javax.api,javax.transaction.api
+
+##########################
+Criando um driver JDBC####
+##########################
+
+***PostgreSQL
+/subsystem=datasources/jdbc-driver=org.postgresql:add(driver-name=org.postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+Removendo
+/subsystem=datasources/jdbc-driver=org.postgresql:remove
+
+
+***MySQL
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-xa-datasource-class-name=com.mysql.cj.jdbc.MysqlXADataSource)
+
+##########################
+Criando o Datasource######
+##########################
+
+***PostgreSQL
+Copiar o trecho abaixo no arquivo de configuração standalone-full.xml:
+
+<datasource jndi-name="java:/GSF-MRD_POSTGRES" pool-name="GSF-MRD_POSTGRES">
+<connection-url>jdbc:postgresql://localhost:5432/gsf_mrd</connection-url>
+<driver-class>org.postgresql.Driver</driver-class>
+<driver>org.postgresql</driver>
+<security>
+<user-name>fernando</user-name>
+<password>@#H0m3369</password>
+</security>
+<validation>
+<valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+<validate-on-match>true</validate-on-match>
+<exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+</validation>
+</datasource>
