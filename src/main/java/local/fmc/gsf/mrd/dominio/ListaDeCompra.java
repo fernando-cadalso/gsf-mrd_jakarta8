@@ -25,8 +25,9 @@ public class ListaDeCompra {
 		return data;
 	}
 
-	public void setData(LocalDateTime dataCompra) {
-		this.data = dataCompra;
+	public void setData() {
+		this.data = LocalDateTime.now();
+		System.out.println("Data do registro da lista de compras: " + getData());
 	}
 
 	public Long getId() {

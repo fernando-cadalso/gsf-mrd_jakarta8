@@ -40,7 +40,7 @@ public class CompraBean implements Serializable {
 	 */
 	private List<ListaModelo> listasModelo;
 	private Integer listaSelecionada;
-	private Integer[] itemSelecionado;
+	private Integer itemSelecionado;
 	private List<ItemDeConsumo> itens = new ArrayList<>();
 	private ListaModelo listaModelo = new ListaModelo();
 	private ListaDeCompra listaDeCompra = new ListaDeCompra();
@@ -112,11 +112,11 @@ public class CompraBean implements Serializable {
 		return listaModelo;
 	}
 
-	public Integer[] getItemSelecionado() {
+	public Integer getItemSelecionado() {
 		return itemSelecionado;
 	}
 
-	public void setItemSelecionado(Integer[] itemSelecionado) {
+	public void setItemSelecionado(Integer itemSelecionado) {
 		this.itemSelecionado = itemSelecionado;
 	}
 

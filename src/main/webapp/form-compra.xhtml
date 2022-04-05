@@ -52,30 +52,19 @@
 
 						</p:selectOneMenu>
 
-						<!-- 						<p:dataTable id="tabelaItens" > -->
-						<!-- 							<f:facet name="header">Selecione os itens para montar a lista</f:facet> -->
-
-
-
-						<!-- 						</p:dataTable> -->
-
 						<div class="p-formgroup-inline">
-							<div class="p-field">
-								<p:inputText id="nomeItem" value="#{beanC.item.nome}"
-									placeholder="Digite um item..." required="true"
-									requiredMessage="Nome não pode ser em branco." />
-							</div>
+							<!-- 							<div class="p-field"> -->
+							<!-- 								<p:inputText id="nomeItem" value="#{beanC.item.nome}" -->
+							<!-- 									placeholder="Digite um item..." required="true" -->
+							<!-- 									requiredMessage="Nome não pode ser em branco." /> -->
+							<!-- 							</div> -->
 							<div class="p-field">
 								<p:inputNumber id="qtdeItem" placeholder="Quantidade..."
 									alt="Quantidade do item." value="#{beanC.item.quantidade}"
 									decimalPlaces="3" decimalSeparator="," maxValue="999999.99" />
 							</div>
-
 						</div>
-
-						<div class="form-text">Verifique antes de salvar.</div>
 					</p:panelGrid>
-
 				</p:fieldset>
 
 				<!-- 	###################################################################### -->
@@ -83,6 +72,9 @@
 				<!-- 	###################################################################### -->
 				<f:facet name="footer">
 					<div class="card-footer">
+						<div class="form-text">
+							Verifique antes de salvar.<br />
+						</div>
 
 						<p:commandButton value="Salvar" action="#{beanC.salvar}"
 							process="@form" update="@form messages @(.ui-datatable)"
